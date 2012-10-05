@@ -2,6 +2,22 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-a {
-  color: #00b7ff;
+#main-menu {
+  float: left;
+  width: 100%;
+}
+ul#main-menu li {
+  float: left;
+  list-style: none;
+  padding: 11px;
+}
+.mission {
+  float: right;
+  width: 490px;
+  line-height: 17px;
+  text-align: center;
+}
+#page {
+  width: 1000px;
+  margin: 0px auto;
 }
