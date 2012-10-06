@@ -18,7 +18,7 @@ db.connect(function(err) {
 	}
 	else {
 		console.log('Server failed to connect to database with the following:')
-		throw err;	
+		//throw err;	// Disable this to make the server still work without db connection
 	}
 
 	console.log('host:  ' + config.mysql.host);

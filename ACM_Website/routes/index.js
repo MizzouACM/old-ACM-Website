@@ -4,10 +4,6 @@ var db = require('../db');
 exports.index = function(req, res) {
 	db.query('SELECT * FROM Users', function(err, rows) {
 
-		console.log(rows);
-		console.log(rows[0]);
-
-
 		res.render('home', { 
 			title: 'Association for Computing Machinery', 
 			users: rows,
