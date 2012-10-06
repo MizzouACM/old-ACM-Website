@@ -1,21 +1,19 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'PT Sans', sans-serif;
 }
 #main-menu {
   float: left;
   width: 100%;
+  padding: 0px;
 }
 ul#main-menu li {
   float: left;
   list-style: none;
-  padding: 11px;
+  padding-right: 11px;
 }
 .mission {
-  float: right;
   width: 490px;
-  line-height: 17px;
-  text-align: center;
 }
 #page {
   width: 1000px;
