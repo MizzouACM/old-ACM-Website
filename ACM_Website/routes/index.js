@@ -1,12 +1,25 @@
+var db = require('../db');
+
+
 exports.index = function(req, res) {
-  res.render('home', { title: 'Association for Computing Machinery' });
+	db.query('SELECT * FROM Users', function(err, rows) {
+
+		console.log(rows);
+		console.log(rows[0]);
+
+
+		res.render('home', { 
+			title: 'Association for Computing Machinery', 
+			users: rows,
+		 });
+	});
 };
 exports.calendar = function(req, res) {
-  res.render('page', { title: 'Calendar' });
+	res.render('page', { title: 'Calendar' });
 };
 exports.contact = function(req, res) {
-  res.render('page', { title: 'Contact' });
+	res.render('page', { title: 'Contact' });
 };
 exports.about = function(req, res) {
-  res.render('page', { title: 'About' });
+	res.render('page', { title: 'About' });
 };
