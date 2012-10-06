@@ -1,0 +1,30 @@
+var config = {}
+
+config.mysql = {}
+config.mysql.dev = {}
+config.mysql.depl = {}
+config.web = {}
+
+// MySQL info for running locally
+if (process.env.NODE_ENV == 'development') {
+
+	config.mysql.host = 'hostname';
+	config.mysql.user = 'username';
+	config.mysql.password = 'secretpassword';
+	config.mysql.port = 3306;
+
+}
+// MySQL info for running on acm.missouri.edu
+else if (process.env.NODE_ENV == 'production') {
+
+	config.mysql.host = 'hostname'
+	config.mysql.user = 'username';
+	config.mysql.password = 'secretpassword';
+	config.mysql.port = 3306;
+
+}
+config.mysql.database = 'databasename';
+
+config.web.port = process.env.PORT || 3000;
+
+module.exports = config;
