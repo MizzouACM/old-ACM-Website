@@ -1,3 +1,7 @@
 # Database configuration file #
 ################################
 ACM_WEBSITE/config.js
+
+# Generated CSS #
+################################
+ACM_WEBSITE/public/stylesheets/style.css
