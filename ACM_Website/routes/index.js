@@ -10,7 +10,7 @@ exports.users = function(req, res) {
 	});
 };
 exports.index = function(req, res) {
-	res.render('page', { title: 'Association for Computing Machinery' });
+	res.render('page', { title: 'Association for Computing Machinery', showMission: true });
 };
 exports.calendar = function(req, res) {
 	res.render('page', { title: 'Calendar' });
