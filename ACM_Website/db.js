@@ -7,7 +7,6 @@ var db = mysql.createConnection({
 	host : config.mysql.host,
 	user : config.mysql.user,
 	password : config.mysql.password,
-	port : config.mysql.port,
 	database : config.mysql.database,
 });
 
@@ -23,7 +22,6 @@ db.connect(function(err) {
 
 	console.log('host:  ' + config.mysql.host);
 	console.log('user:  ' + config.mysql.user);
-	console.log('port:  ' + config.mysql.port);
 	console.log('database:  ' + config.mysql.database);
 
 });
