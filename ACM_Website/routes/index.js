@@ -10,19 +10,15 @@ exports.users = function(req, res) {
 	});
 };
 exports.index = function(req, res) {
-	res.render('page', {title: 'Association for Computing Machinery', 
-						showMission: true,
-						pageContent: "Front page text here..." });
+	res.render('home', {title: 'Association for Computing Machinery', 
+						showMission: true});
 };
 exports.calendar = function(req, res) {
-	res.render('page', { title: 'Calendar',
-						 pageContent: "Calendar text here..." });
+	res.render('calendar', { title: 'Calendar'});
 };
 exports.contact = function(req, res) {
-	res.render('page', { title: 'Contact',
-						 pageContent: "Contact page text here..."});
+	res.render('contact', { title: 'Contact'});
 };
 exports.about = function(req, res) {
-	res.render('page', { title: 'About',
-						 pageContent: "About page text here..."	});
+	res.render('about', { title: 'About'});
 };
