@@ -10,8 +10,7 @@ exports.users = function(req, res) {
 	});
 };
 exports.index = function(req, res) {
-	res.render('home', {title: 'Association for Computing Machinery', 
-						showMission: true});
+	res.render('home', {title: 'Association for Computing Machinery'});
 };
 exports.calendar = function(req, res) {
 	res.render('calendar', { title: 'Calendar'});
@@ -20,5 +19,6 @@ exports.contact = function(req, res) {
 	res.render('contact', { title: 'Contact'});
 };
 exports.about = function(req, res) {
-	res.render('about', { title: 'About'});
+	res.render('about', { title: 'About',
+						showMission: true});
 };
