@@ -13,7 +13,7 @@ var express = require('express')
 var app = express();
 
 app.configure(function(){
-  app.set('port', config.web.port);
+  app.set('port', config.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
