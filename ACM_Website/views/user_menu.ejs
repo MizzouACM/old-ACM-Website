@@ -1,0 +1,6 @@
+<% if (!user) { %>
+	<a href="/auth/Google" class="btn">Sign in with Google</a>
+<% } else { %>
+	<a href="/account" class="btn">My Account</a>
+	<a href="logout" class="btn">Logout</a>
+<% } %>
