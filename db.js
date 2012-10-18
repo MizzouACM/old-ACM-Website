@@ -7,9 +7,9 @@ var sequelize = new Sequelize(config.database, config.user, config.password, {
 //	logging: false //comment out this line to show all db queries in console
 })
 db.users = sequelize.define('users', {
-	GoogleId: Sequelize.TEXT,
-	name: Sequelize.TEXT,
-	email: Sequelize.TEXT
+	GoogleId: Sequelize.STRING,
+	name: Sequelize.STRING,
+	email: Sequelize.STRING
 })
 db.users.sync()
 module.exports = db;
