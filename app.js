@@ -113,7 +113,7 @@ app.get('/auth/google/callback',
 			console.log(red+"User " + req.user.displayName + " already exists."+reset);
 		}
 	});
-    res.redirect('/loggedin');
+    res.redirect('/');
   });
 
 app.get('/logout', function(req, res){
@@ -121,7 +121,6 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.get('/loggedin',ensureAuthenticated,routes.index);
 app.get('/', routes.index);
 app.get('/calendar', routes.calendar)
 app.get('/contact', routes.contact)
