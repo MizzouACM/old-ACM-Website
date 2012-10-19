@@ -128,6 +128,7 @@ app.get('/calendar', routes.calendar)
 app.get('/contact', routes.contact)
 app.get('/about', routes.about)
 app.get('/users', routes.users);
+app.get('/resources', routes.resources);
 
 
 function ensureAuthenticated(req, res, next) {
