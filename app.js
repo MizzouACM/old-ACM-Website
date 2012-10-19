@@ -129,6 +129,7 @@ app.get('/contact', routes.contact)
 app.get('/about', routes.about)
 app.get('/users', routes.users);
 app.get('/resources', routes.resources);
+app.get('/gallery', routes.gallery);
 
 
 function ensureAuthenticated(req, res, next) {

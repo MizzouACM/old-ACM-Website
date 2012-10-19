@@ -25,3 +25,6 @@ exports.about = function(req, res) {
 exports.resources = function(req, res) {
 	res.render('resources', { title: 'Resources'});
 };
+exports.resources = function(req, res) {
+	res.render('gallery', { title: 'Gallery'});
+};
