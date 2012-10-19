@@ -24,7 +24,7 @@ app.configure(function() {
   app.set('port', config.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-//  app.use(express.logger());
+  //  app.use(express.logger());
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -35,9 +35,21 @@ app.configure(function() {
   app.use(passport.session());
   // Add variables to every template
   app.use(function (req, res, next) {
-    app.locals.user = req.user;
+    res.locals.user = req.user;
     next();
-  });
+  })  
+  // Message support
+  app.use(function (req, res, next) {
+
+    if (req.session.message)
+    {
+       res.locals.message = req.session.message;
+       req.session.message = undefined;
+    } 
+
+    next();
+    
+  });;
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(__dirname + '/public'));
@@ -114,8 +126,8 @@ app.get('/auth/google/callback',
 		}
 	});
     // Set message
-    res.locals.message = "You have logged in as " + req.user.displayName;
-    res.redirect('/');
+    req.session.message = "You have logged in as " + req.user.displayName;
+    res.redirect('back');
   });
 
 app.get('/logout', function(req, res){
