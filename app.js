@@ -113,6 +113,8 @@ app.get('/auth/google/callback',
 			console.log(red+"User " + req.user.displayName + " already exists."+reset);
 		}
 	});
+    // Set message
+    res.locals.message = "You have logged in as " + req.user.displayName;
     res.redirect('/');
   });
 
