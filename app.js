@@ -68,11 +68,11 @@ var env = process.env.NODE_ENV || 'development';
 if (env == 'development') {
 	var callbackURL = "http://localhost:3000/auth/google/callback"; //locally
 } else {
-	var callbackURL = "http://immense-inlet-3117.herokuapp.com/auth/google/callback"; //on Heroku
+	var callbackURL = ""; //on Heroku
 }
 passport.use(new GoogleStrategy({
-    clientID: '183030661841.apps.googleusercontent.com',
-    clientSecret: '4E3rNxQHcNbyQMsdOv2sH7gc',
+    clientID: config.GoogleClientID,
+    clientSecret: config.GoogleClientSecret,
     callbackURL: callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
