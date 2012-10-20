@@ -131,8 +131,9 @@ app.get('/auth/google/callback',
   });
 
 app.get('/logout', function(req, res){
+  //console.log('Logging user ' + req.user.displayName + ' out');
   req.logout();
-  res.redirect('/');
+  res.redirect('back');
 });
 
 app.get('/', routes.index);
