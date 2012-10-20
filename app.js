@@ -137,11 +137,14 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/createGroupCallback', function(req, res) {
-	db.groups.create({name: req.query['name'], description: req.query['description'], meetingInformation: req.query['methodOverride']}).success(function(result) {
+	db.groups.create({name: req.query['name'], description: req.query['description'], meetingInformation: req.query['meetingInformation']}).success(function(result) {
 		req.session.message = "You have created the " + req.query['name'] + " group.";
 		res.redirect('back');
 	});
 });
+
+
+app.get('/groups/:name', routes.groups);
 
 app.get('/', routes.index);
 app.get('/calendar', routes.calendar)

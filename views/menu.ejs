@@ -14,7 +14,7 @@ $(function() {
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Groups <b class="caret"></b></a>
 		<ul class="dropdown-menu">
 			<% for (var i=0;i<groups.length;i++) { %>
-				<li><a href="#"><%= groups[i].name %></a></li>
+				<li><a href="/groups/<%= groups[i].name %>"><%= groups[i].name %></a></li>
 			<% } %>
 		</ul>
 	  </li>
