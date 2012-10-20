@@ -36,20 +36,21 @@ app.configure(function() {
   // Add variables to every template
   app.use(function (req, res, next) {
     res.locals.user = req.user;
-    next();
+  	db.groups.findAll({ // pass group names to the menu on every page
+		attributes: ['name']
+	}).success(function(results) {
+		res.locals.groups = results;
+		next();
+    });
   })  
   // Message support
   app.use(function (req, res, next) {
-
-    if (req.session.message)
-    {
+    if (req.session.message) {
        res.locals.message = req.session.message;
        req.session.message = undefined;
-    } 
-
-    next();
-    
-  });;
+    }
+	next();
+  });
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(__dirname + '/public'));
@@ -58,7 +59,6 @@ app.configure(function() {
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
-
 
 app.configure('development', function(){
   app.use(express.errorHandler());
@@ -136,6 +136,13 @@ app.get('/logout', function(req, res){
   res.redirect('back');
 });
 
+app.get('/createGroupCallback', function(req, res) {
+	db.groups.create({name: req.query['name'], description: req.query['description'], meetingInformation: req.query['methodOverride']}).success(function(result) {
+		req.session.message = "You have created the " + req.query['name'] + " group.";
+		res.redirect('back');
+	});
+});
+
 app.get('/', routes.index);
 app.get('/calendar', routes.calendar)
 app.get('/contact', routes.contact)
@@ -143,6 +150,7 @@ app.get('/about', routes.about)
 app.get('/users', routes.users);
 app.get('/resources', routes.resources);
 app.get('/gallery', routes.gallery);
+app.get('/createGroup', routes.createGroup);
 
 
 function ensureAuthenticated(req, res, next) {

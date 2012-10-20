@@ -12,4 +12,10 @@ db.users = sequelize.define('users', {
 	email: Sequelize.STRING
 })
 db.users.sync()
+db.groups = sequelize.define('groups', {
+	name: Sequelize.STRING,
+	description: Sequelize.STRING,
+	meetingInformation: Sequelize.STRING
+})
+db.groups.sync()
 module.exports = db;

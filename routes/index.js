@@ -1,14 +1,5 @@
 var db = require('../db');
 
-
-exports.users = function(req, res) {
-	db.query('SELECT * FROM Users', function(err, rows) {
-
-		res.render('user-test', { 
-			users: rows,
-		 });
-	});
-};
 exports.index = function(req, res) {
 	res.render('home', {title: 'Association for Computing Machinery'});
 };
@@ -25,6 +16,9 @@ exports.about = function(req, res) {
 exports.resources = function(req, res) {
 	res.render('resources', { title: 'Resources'});
 };
-exports.resources = function(req, res) {
+exports.gallery = function(req, res) {
 	res.render('gallery', { title: 'Gallery'});
+};
+exports.createGroup = function(req, res) {
+	res.render('createGroup', { title: 'Create an ACM Group'});
 };
