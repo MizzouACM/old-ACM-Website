@@ -36,12 +36,13 @@ app.configure(function() {
   // Add variables to every template
   app.use(function (req, res, next) {
     res.locals.user = req.user;
-  	db.groups.findAll({ // pass group names to the menu on every page
+  /**	db.groups.findAll({ // pass group names to the menu on every page
 		attributes: ['name']
 	}).success(function(results) {
 		res.locals.groups = results;
+    }); **/
+		res.locals.groups = [];
 		next();
-    });
   })  
   // Message support
   app.use(function (req, res, next) {
