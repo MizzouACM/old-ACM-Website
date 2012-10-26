@@ -17,7 +17,8 @@ exports.resources = function(req, res) {
 	res.render('resources', { title: 'Resources'});
 };
 exports.gallery = function(req, res) {
-	res.render('gallery', { title: 'Gallery'});
+	res.render('gallery', { title: 'Gallery',
+						hideSidebar: true});
 };
 exports.createGroup = function(req, res) {
 	res.render('createGroup', { title: 'Create an ACM Group'});

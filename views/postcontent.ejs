@@ -1,7 +1,10 @@
 </p>
         </div>
         <div class="span4">
-          <% include sidebar %>
+		<% if (typeof hideSidebar == "undefined") { %>
+			<% include sidebar %>
+		<% } %>
+          
        </div>
       </div>
 
