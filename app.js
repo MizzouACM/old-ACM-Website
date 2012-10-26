@@ -24,7 +24,7 @@ app.configure(function() {
   app.set('port', config.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  //  app.use(express.logger());
+  //app.use(express.logger());
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -35,15 +35,23 @@ app.configure(function() {
   app.use(passport.session());
   // Add variables to every template
   app.use(function (req, res, next) {
+
     res.locals.user = req.user;
-  /**	db.groups.findAll({ // pass group names to the menu on every page
-		attributes: ['name']
-	}).success(function(results) {
-		res.locals.groups = results;
-    }); **/
-		res.locals.groups = [];
-		next();
-  })  
+
+    if (!app.locals.groups) {
+    	db.groups.findAll({ // pass group names to the menu on every page
+  		attributes: ['name']
+  	}).success(function(results) {
+   		app.locals.groups = results; 
+      next();
+    }); 
+    }
+    else {
+      next();
+    }
+
+  });
+
   // Message support
   app.use(function (req, res, next) {
     if (req.session.message) {
