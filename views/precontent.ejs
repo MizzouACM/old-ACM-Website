@@ -30,11 +30,15 @@
         <%= message %>
       </div>
       <% } %>
-		<h1><%= title %></h1>
+		<% if (typeof title !== "undefined" && typeof hideTitle == "undefined") { %><h1><%= title %></h1><% } %>
 		<% if (typeof showMission !== "undefined") { %>
 			<% include mission %>
 		<% } %>
       <!-- Example row of columns -->
       <div class="row">
-        <div class="span8">
+			<% if (typeof showSidebar == "undefined") { %>
+				<div class="span8">
+			<% } else if (showSidebar == false) { %>
+				<div class="span12">
+			<% } %>
           <p>
