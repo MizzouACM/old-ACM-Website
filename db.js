@@ -4,6 +4,7 @@ var Sequelize = require("sequelize")
 var db = {};
 var sequelize = new Sequelize(config.database, config.user, config.password, {
 	host: config.host,
+	port: config.dbPort
 //	logging: false //comment out this line to show all db queries in console
 })
 db.users = sequelize.define('users', {
