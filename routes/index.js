@@ -25,6 +25,7 @@ exports.gallery = function(req, res) {
 };
 exports.galleryimage = function(req, res) {
 	res.render('galleryimage', {img:req.params.img,
+											title: '',
 								hideSidebar: true});
 };
 exports.createGroup = function(req, res) {

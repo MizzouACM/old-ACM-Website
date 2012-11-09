@@ -30,7 +30,7 @@
         <%= message %>
       </div>
       <% } %>
-		<% if (typeof title !== "undefined" && typeof hideTitle == "undefined") { %><h1><%= title %></h1><% } %>
+		<% if (typeof title !== "undefined") { %><h1><%= title %></h1><% } %>
 		<% if (typeof showMission !== "undefined") { %>
 			<% include mission %>
 		<% } %>
