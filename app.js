@@ -163,6 +163,7 @@ app.get('/users', routes.users);
 app.get('/resources', routes.resources);
 app.get('/gallery', routes.gallery);
 app.get('/createGroup', routes.createGroup);
+app.get('/account', ensureAuthenticated, routes.account);
 
 
 function ensureAuthenticated(req, res, next) {

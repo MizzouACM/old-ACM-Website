@@ -6,6 +6,9 @@ exports.index = function(req, res) {
 exports.calendar = function(req, res) {
 	res.render('calendar', { title: 'Calendar'});
 };
+exports.account = function(req, res) {
+	res.render('account', { title: req.user.displayName});
+};
 exports.contact = function(req, res) {
 	res.render('contact', { title: 'Contact'});
 };
