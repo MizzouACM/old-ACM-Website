@@ -20,8 +20,7 @@ exports.resources = function(req, res) {
 	res.render('resources', { title: 'Resources'});
 };
 exports.gallery = function(req, res) {
-	res.render('gallery', { title: 'Gallery',
-						hideSidebar: true});
+	res.render('gallery', { title: 'Gallery'});
 };
 exports.galleryimage = function(req, res) {
 	res.render('galleryimage', {img:req.params.img,
