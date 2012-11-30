@@ -37,6 +37,7 @@ app.configure(function() {
 
     res.locals.user = req.user;
    
+    next();
 
   });
 
@@ -154,6 +155,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/');
 }
+
 
 
 // pass group names to the menu on every page
