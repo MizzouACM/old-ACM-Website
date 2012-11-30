@@ -12,7 +12,13 @@ db.users = sequelize.define('users', {
 	name: Sequelize.STRING,
 	email: Sequelize.STRING
 })
+db.comments = sequelize.define('comments', {
+	type: Sequelize.STRING,
+	comment: Sequelize.TEXT
+})
+db.users.hasOne(db.comments)
 db.users.sync()
+db.comments.sync()
 db.groups = sequelize.define('groups', {
 	name: Sequelize.STRING,
 	description: Sequelize.STRING,
