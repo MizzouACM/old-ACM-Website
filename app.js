@@ -9,7 +9,6 @@ reset = '\u001b[0m';
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , config = require('./config')
@@ -159,7 +158,6 @@ app.get('/', routes.index);
 app.get('/calendar', routes.calendar)
 app.get('/contact', routes.contact)
 app.get('/about', routes.about)
-app.get('/users', routes.users);
 app.get('/resources', routes.resources);
 app.get('/gallery', routes.gallery);
 app.get('/gallery/:img', routes.galleryimage);
