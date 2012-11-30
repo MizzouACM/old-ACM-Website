@@ -147,7 +147,7 @@ app.get('/about', routes.about)
 app.get('/resources', routes.resources);
 app.get('/gallery', routes.gallery);
 app.get('/gallery/:img', routes.galleryimage);
-app.get('/createGroup', routes.createGroup);
+app.get('/creategroup', routes.createGroup);
 app.get('/account', ensureAuthenticated, routes.account);
 
 
