@@ -3,7 +3,7 @@ $(function() {
 	$('.dropdown-toggle').dropdown()
 });
 </script>
-<ul class="nav">
+<ul id="navbarlist" class="nav">
 	<li class="active"><a href="/">Home</a></li>
 	<li><a href="/calendar">Calendar</a></li>
 	<li><a href="/contact">Contact</a></li>
@@ -16,6 +16,8 @@ $(function() {
 			<% for (var i=0;i<groups.length;i++) { %>
 				<li><a href="/groups/<%= groups[i].name %>"><%= groups[i].name %></a></li>
 			<% } %>
+			<li class="divider"></li>
+			<li><a href="/creategroup">Create a Group</a></li>
 		</ul>
 	  </li>
 </ul>

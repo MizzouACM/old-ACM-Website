@@ -9,7 +9,6 @@ reset = '\u001b[0m';
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , config = require('./config')
@@ -37,18 +36,8 @@ app.configure(function() {
   app.use(function (req, res, next) {
 
     res.locals.user = req.user;
-
-    if (!app.locals.groups) {
-    	db.groups.findAll({ // pass group names to the menu on every page
-  		attributes: ['name']
-  	}).success(function(results) {
-   		app.locals.groups = results; 
-      next();
-    }); 
-    }
-    else {
-      next();
-    }
+   
+    next();
 
   });
 
@@ -69,9 +58,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
-});
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -85,8 +71,7 @@ passport.deserializeUser(function(obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Google
 //   profile), and invoke a callback with a user object.
-var env = process.env.NODE_ENV || 'development';
-if (env == 'development') {
+if (config.env == 'development') {
 	var callbackURL = "http://localhost:3000/auth/google/callback"; //locally
 } else {
 	var callbackURL = ""; //on Heroku
@@ -159,11 +144,10 @@ app.get('/', routes.index);
 app.get('/calendar', routes.calendar)
 app.get('/contact', routes.contact)
 app.get('/about', routes.about)
-app.get('/users', routes.users);
 app.get('/resources', routes.resources);
 app.get('/gallery', routes.gallery);
 app.get('/gallery/:img', routes.galleryimage);
-app.get('/createGroup', routes.createGroup);
+app.get('/creategroup', routes.createGroup);
 app.get('/account', ensureAuthenticated, routes.account);
 
 
@@ -172,6 +156,15 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/');
 }
 
+
+
+// pass group names to the menu on every page
+db.groups.findAll({ 
+  attributes: ['name']
+}).success(function(results) {
+  app.locals.groups = results; 
+}); 
+ 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
