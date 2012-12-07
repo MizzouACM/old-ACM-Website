@@ -1,4 +1,16 @@
 <% include precontent %>
 <img src = "/img/Gallery/<%= img %>" >
-
+<div id="picture-comments-holder" class="well">
+	<% if (user) { %>
+	<form method="get" action="/postComment">
+			<input type="hidden" name="type" value="picture">
+			<textarea name="comment" rows="3" placeholder="Comment"></textarea><br>
+			<input type="submit" class="btn">
+	</form>
+	<% } else { %>
+		<p>
+			You must log in before you can post a comment.
+		</p>	
+	<% } %>
+</div>
 <% include postcontent %>
