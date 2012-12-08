@@ -23,8 +23,9 @@ exports.gallery = function(req, res) {
 	res.render('gallery', { title: 'Gallery', showSidebar: true});
 };
 exports.galleryimage = function(req, res) {
-	res.render('galleryimage', {img:req.params.img,
-											title: ''});
+	db.comments.findAll({where: {page:req.params.img}}).success(function(comments) {
+		res.render('galleryimage', {img:req.params.img, title: '', comments: comments});
+	});
 };
 exports.createGroup = function(req, res) {
 	res.render('createGroup', { title: 'Create an ACM Group'});
