@@ -5,6 +5,7 @@
 	<% if (user) { %>
 	<form method="get" action="/postComment">
 			<input type="hidden" name="type" value="picture">
+			<input type="hidden" name="page" value="<%= img %>">
 			<textarea name="comment" rows="3" placeholder="Comment"></textarea><br>
 			<input type="submit" class="btn" value="Post Comment">
 	</form>

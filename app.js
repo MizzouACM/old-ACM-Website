@@ -58,10 +58,12 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
 passport.serializeUser(function(user, done) {
-  done(null, user);
-});
+	db.users.find({where: {"GoogleId": user._json.id}}).success(function(result) {
+		user.id = result.id;
+		done(null, user);
+	});
+ });
 
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
@@ -133,6 +135,12 @@ app.get('/logout', function(req, res){
 app.get('/createGroupCallback', function(req, res) {
 	db.groups.create({name: req.query['name'], description: req.query['description'], meetingInformation: req.query['meetingInformation']}).success(function(result) {
 		req.session.message = "You have created the " + req.query['name'] + " group.";
+		res.redirect('back');
+	});
+});
+
+app.get('/postComment', function(req, res) {
+	db.comments.create({comment: req.query['comment'], type: req.query['type'], userId: req.user.id, page: req.query['page']}).success(function(result) {
 		res.redirect('back');
 	});
 });

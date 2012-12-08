@@ -14,7 +14,8 @@ db.users = sequelize.define('users', {
 })
 db.comments = sequelize.define('comments', {
 	type: Sequelize.STRING,
-	comment: Sequelize.TEXT
+	comment: Sequelize.TEXT,
+	page: Sequelize.STRING
 })
 db.users.hasOne(db.comments)
 db.users.sync()
