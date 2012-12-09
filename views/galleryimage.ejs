@@ -3,7 +3,7 @@
 <div id="picture-comments-holder" class="well">
 	<h4>Comments (<%= comments.length %>)</h4>
 	<% comments.forEach( function(comment) { %>
-		<div>User <%= comment.userId %> on <% var d = new Date(comment.createdAt); var dateString = (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear() %><%= dateString %>: <%= comment.comment %></div>
+		<div><%= comment.name %> on <% var d = new Date(comment.createdAt); var dateString = (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear() %><%= dateString %>: <%= comment.comment %></div>
 	<% }); %>
 	<br>
 	<% if (user) { %>

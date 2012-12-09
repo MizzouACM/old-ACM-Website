@@ -23,10 +23,25 @@ exports.gallery = function(req, res) {
 	res.render('gallery', { title: 'Gallery', showSidebar: true});
 };
 exports.galleryimage = function(req, res) {
-	db.comments.findAll({where: {page:req.params.img}}).success(function(comments) {
-		res.render('galleryimage', {img:req.params.img, title: '', comments: comments});
+	db.users.findAll({attributes: ['id','name']}).success(function(users) {
+		db.comments.findAll({where: {page:req.params.img}}).success(function(comments) {
+			comments = proccessComments(comments, users);
+			res.render('galleryimage', {img:req.params.img, title: '', comments: comments});
+		});
 	});
 };
+
+function proccessComments(comments, users) {
+	comments.forEach(function(comment) {
+		users.forEach(function(user) {
+			if (comment.userId == user.id) {
+				comment.name = user.name;
+			}
+		});
+	});
+	return comments;
+}
+
 exports.createGroup = function(req, res) {
 	res.render('createGroup', { title: 'Create an ACM Group'});
 };
