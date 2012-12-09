@@ -1,5 +1,12 @@
 <% include precontent %>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "00f6a4b3-d25e-424e-a968-48f706ded662"});</script>
 <img src = "/img/Gallery/<%= img %>" >
+<div id="social-media-pic-sharing">
+	<span class='st_facebook_hcount' displayText='Facebook'></span>
+	<span class='st_twitter_hcount' displayText='Tweet'></span>
+	<span class='st_pinterest_hcount' displayText='Pinterest'></span>
+</div>
 <div id="picture-comments-holder" class="well">
 	<h4>Comments (<%= comments.length %>)</h4>
 	<% comments.forEach( function(comment) { %>
