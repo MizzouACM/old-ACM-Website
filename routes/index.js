@@ -38,6 +38,8 @@ function proccessComments(comments, users) {
 				comment.name = user.name;
 			}
 		});
+		var d = new Date(comment.createdAt);
+		comment.date = (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
 	});
 	return comments;
 }
