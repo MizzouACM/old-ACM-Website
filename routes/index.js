@@ -33,9 +33,10 @@ exports.galleryimage = function(req, res) {
 
 function proccessComments(comments, users) {
 	comments.forEach(function(comment) {
-		users.forEach(function(user) {
+		users.some(function(user) {
 			if (comment.userId == user.id) {
 				comment.name = user.name;
+				return;
 			}
 		});
 		var d = new Date(comment.createdAt);
