@@ -23,7 +23,8 @@ db.comments.sync()
 db.groups = sequelize.define('groups', {
 	name: Sequelize.STRING,
 	description: Sequelize.STRING,
-	meetingInformation: Sequelize.STRING
+	meetingInformation: Sequelize.STRING,
+	members: Sequelize.STRING
 })
 db.groups.sync()
 module.exports = db;
