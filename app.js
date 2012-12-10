@@ -41,16 +41,20 @@ app.configure(function() {
     next();
 
   });
-
-	// Message support
-	app.use(function (req, res, next) {
-		// pass group names to the menu on every page
+	function resetGroupsCache() {
 		db.groups.findAll({ 
 			attributes: ['name', 'members']
 		}).success(function(results) {
-			app.locals.groups = results; 
-			next();
-		}); 
+			app.locals.groups = results; // pass group names to the menu on every page
+		});
+	}
+	resetGroupsCache();
+	setInterval(function() { //reset the group names every minute
+		resetGroupsCache(); 
+	}, 60000);
+	// Message support
+	app.use(function (req, res, next) {
+		next();
 	});
   app.use(function (req, res, next) {
     if (req.session.message) {
