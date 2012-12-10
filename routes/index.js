@@ -54,8 +54,12 @@ exports.groups = function(req, res) {
 			if (members.length) {
 				members = members.split(',');
 			}
+			var currentUserIsMember = false;
+			if (req.user && members.indexOf(req.user.id.toString()) != -1) {
+				currentUserIsMember = true;
+			}
 			members = uidToNames(members, users);
-			res.render('group', { title: result.name, meetingInformation: result.meetingInformation, description: result.description, members: members});
+			res.render('group', { title: result.name, meetingInformation: result.meetingInformation, description: result.description, members: members, currentUserIsMember:currentUserIsMember});
 		});
 	});
 };

@@ -1,9 +1,16 @@
 <% include precontent %>
 <% if (user) {%>
-	<form style="float:right;" method="get" action="/addGroupMember">
-		<input type="hidden" name="group" value="<%= title %>">
-		<input type="submit" class="btn" value="Join this Group">
-	</form>
+	<% if (currentUserIsMember) { %>
+		<form style="float:right;" method="get" action="#">
+			<input type="hidden" name="group" value="<%= title %>">
+			<input type="submit" class="btn" value="Leave Group">
+		</form>
+	<% } else { %>
+		<form style="float:right;" method="get" action="/addGroupMember">
+			<input type="hidden" name="group" value="<%= title %>">
+			<input type="submit" class="btn" value="Join this Group">
+		</form>
+	<% } %>
 <% } else { %>
 	<a href="/auth/Google" style="float:right;" class="no-ajaxy btn">Login to Join this Group</a>
 <% } %>
