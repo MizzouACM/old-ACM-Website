@@ -1,5 +1,18 @@
 <% include precontent %>
-<a href="#" class="btn" style="float:right;">Join this Group</a>
-<b>Group Description</b>: <%= group.description %><br>
-<b>Meeting Information</b>: <%= group.meetingInformation%>
+<% if (user) {%>
+	<form style="float:right;" method="get" action="/addGroupMember">
+		<input type="hidden" name="group" value="<%= title %>">
+		<input type="submit" class="btn" value="Join this Group">
+	</form>
+<% } else { %>
+	<a href="/auth/Google" style="float:right;" class="no-ajaxy btn">Login to Join this Group</a>
+<% } %>
+<b>Group Description</b>: <%= description %><br>
+<b>Meeting Information</b>: <%= meetingInformation%><br>
+<b>Members</b>:
+<ul>
+	<% members.forEach(function(member) { %>
+		<li><%= member %></li>
+	<% }) %>
+</ul>
 <% include postcontent %>

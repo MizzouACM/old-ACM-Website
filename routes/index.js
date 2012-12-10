@@ -48,7 +48,27 @@ exports.createGroup = function(req, res) {
 	res.render('createGroup', { title: 'Create an ACM Group'});
 };
 exports.groups = function(req, res) {
-	db.groups.find({where: {name:req.params.name}}).success(function(result) {
-		res.render('group', { title: result.name, group: result});
+	db.users.findAll({attributes: ['id','name']}).success(function(users) {
+		db.groups.find({where: {name:req.params.name}}).success(function(result) {
+			members = result.members || [];
+			if (members.length) {
+				members = members.split(',');
+			}
+			members = uidToNames(members, users);
+			res.render('group', { title: result.name, meetingInformation: result.meetingInformation, description: result.description, members: members});
+		});
 	});
 };
+
+function uidToNames(ids, users) { //convert user id's to user names
+	userNames = [];
+	ids.forEach(function(id) {
+		users.some(function(user) {
+			if (id == user.id) {
+				userNames.push(user.name);
+				return;
+			}
+		});
+	});
+	return userNames;
+}

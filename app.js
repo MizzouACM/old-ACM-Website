@@ -3,8 +3,9 @@
  * Module dependencies.
  */
 'use strict';
-var red, reset;
+var red, green, reset;
 red   = '\u001b[31m';
+green   = '\u001B[32m';
 reset = '\u001b[0m';
 
 var express = require('express')
@@ -142,6 +143,19 @@ app.get('/createGroupCallback', function(req, res) {
 app.get('/postComment', function(req, res) {
 	db.comments.create({comment: req.query['comment'], type: req.query['type'], userId: req.user.id, page: req.query['page']}).success(function(result) {
 		res.redirect('back');
+	});
+});
+
+app.get('/addGroupMember', ensureAuthenticated, function(req, res) {
+	db.groups.find( {where: {name:req.query.group}}).success(function(group) {
+		var members = ( group.members ? group.members.split(",") : [] );
+		if (members.indexOf(req.user.id.toString()) == -1) { //user is not already in the group
+			members.push(req.user.id);
+			console.log(green+"User " + req.user.id+" has been added to group " + req.query.group + "." + reset);
+			group.members = members.join(','); //convert members to a string separated by commas
+			group.save();
+		}
+		res.redirect('back'); //return to the page the user was on
 	});
 });
 
