@@ -42,7 +42,16 @@ app.configure(function() {
 
   });
 
-  // Message support
+	// Message support
+	app.use(function (req, res, next) {
+		// pass group names to the menu on every page
+		db.groups.findAll({ 
+			attributes: ['name', 'members']
+		}).success(function(results) {
+			app.locals.groups = results; 
+			next();
+		}); 
+	});
   app.use(function (req, res, next) {
     if (req.session.message) {
        res.locals.message = req.session.message;
@@ -190,15 +199,6 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/');
 }
-
-
-
-// pass group names to the menu on every page
-db.groups.findAll({ 
-  attributes: ['name', 'members']
-}).success(function(results) {
-  app.locals.groups = results; 
-}); 
  
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
