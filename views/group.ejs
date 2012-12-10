@@ -21,5 +21,8 @@
 	<% members.forEach(function(member) { %>
 		<li><%= member %></li>
 	<% }) %>
+	<% if (!members.length) {%>
+		There are no members in this group.
+	<% } %>
 </ul>
 <% include postcontent %>
