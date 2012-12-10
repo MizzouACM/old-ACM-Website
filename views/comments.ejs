@@ -1,0 +1,19 @@
+<div id="picture-comments-holder" class="well">
+	<h4>Comments (<%= comments.length %>)</h4>
+	<% comments.forEach( function(comment) { %>
+		<div><%= comment.name %> on <%= comment.date %>: <%= comment.comment %></div>
+	<% }); %>
+	<br>
+	<% if (user) { %>
+	<form method="get" action="/postComment">
+			<input type="hidden" name="type" value="<%= commentType %>">
+			<input type="hidden" name="page" value="<%= page %>">
+			<textarea name="comment" rows="3" placeholder="Comment"></textarea><br>
+			<input type="submit" class="btn" value="Post Comment">
+	</form>
+	<% } else { %>
+		<p>
+			You must log in before you can post a comment.
+		</p>	
+	<% } %>
+</div>

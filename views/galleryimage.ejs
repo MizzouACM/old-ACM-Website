@@ -7,23 +7,7 @@
 	<span class='st_twitter_hcount' displayText='Tweet'></span>
 	<span class='st_pinterest_hcount' displayText='Pinterest'></span>
 </div>
-<div id="picture-comments-holder" class="well">
-	<h4>Comments (<%= comments.length %>)</h4>
-	<% comments.forEach( function(comment) { %>
-		<div><%= comment.name %> on <%= comment.date %>: <%= comment.comment %></div>
-	<% }); %>
-	<br>
-	<% if (user) { %>
-	<form method="get" action="/postComment">
-			<input type="hidden" name="type" value="picture">
-			<input type="hidden" name="page" value="<%= img %>">
-			<textarea name="comment" rows="3" placeholder="Comment"></textarea><br>
-			<input type="submit" class="btn" value="Post Comment">
-	</form>
-	<% } else { %>
-		<p>
-			You must log in before you can post a comment.
-		</p>	
-	<% } %>
-</div>
+<% var commentType="picture" %>
+<% var page=img %>
+<% include comments %>
 <% include postcontent %>

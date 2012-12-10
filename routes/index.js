@@ -50,16 +50,19 @@ exports.createGroup = function(req, res) {
 exports.groups = function(req, res) {
 	db.users.findAll({attributes: ['id','name']}).success(function(users) {
 		db.groups.find({where: {name:req.params.name}}).success(function(result) {
-			members = result.members || [];
-			if (members.length) {
-				members = members.split(',');
-			}
-			var currentUserIsMember = false;
-			if (req.user && members.indexOf(req.user.id.toString()) != -1) {
-				currentUserIsMember = true;
-			}
-			members = uidToNames(members, users);
-			res.render('group', { title: result.name, meetingInformation: result.meetingInformation, description: result.description, members: members, currentUserIsMember:currentUserIsMember});
+			db.comments.findAll({where: {type: 'group',page:req.params.name}}).success(function(comments) {
+				comments = proccessComments(comments, users);
+				members = result.members || [];
+				if (members.length) {
+					members = members.split(',');
+				}
+				var currentUserIsMember = false;
+				if (req.user && members.indexOf(req.user.id.toString()) != -1) {
+					currentUserIsMember = true;
+				}
+				members = uidToNames(members, users);
+				res.render('group', { title: result.name, meetingInformation: result.meetingInformation, description: result.description, members: members, currentUserIsMember:currentUserIsMember,comments:comments});
+			});
 		});
 	});
 };
