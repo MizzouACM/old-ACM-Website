@@ -195,7 +195,7 @@ function ensureAuthenticated(req, res, next) {
 
 // pass group names to the menu on every page
 db.groups.findAll({ 
-  attributes: ['name']
+  attributes: ['name', 'members']
 }).success(function(results) {
   app.locals.groups = results; 
 }); 
