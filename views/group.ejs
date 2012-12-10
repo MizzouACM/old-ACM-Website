@@ -1,7 +1,7 @@
 <% include precontent %>
 <% if (user) {%>
 	<% if (currentUserIsMember) { %>
-		<form style="float:right;" method="get" action="#">
+		<form style="float:right;" method="get" action="/removeGroupMember">
 			<input type="hidden" name="group" value="<%= title %>">
 			<input type="submit" class="btn" value="Leave Group">
 		</form>

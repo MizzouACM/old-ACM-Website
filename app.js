@@ -158,6 +158,19 @@ app.get('/addGroupMember', ensureAuthenticated, function(req, res) {
 		res.redirect('back'); //return to the page the user was on
 	});
 });
+app.get('/removeGroupMember', ensureAuthenticated, function(req, res) {
+	db.groups.find( {where: {name:req.query.group}}).success(function(group) {
+		var members = ( group.members ? group.members.split(",") : [] );
+		var memberIndex = members.indexOf(req.user.id.toString());
+		if (memberIndex != -1) { //user is the group
+			members.splice(memberIndex,1);
+			console.log(red+"User " + req.user.id+" has been added to group " + req.query.group + "." + reset);
+			group.members = members.join(','); //convert members to a string separated by commas
+			group.save();
+		}
+		res.redirect('back'); //return to the page the user was on
+	});
+});
 
 
 app.get('/groups/:name', routes.groups);
