@@ -42,6 +42,7 @@ app.configure(function() {
 
   });
 	function resetGroupsCache() {
+		console.log(green+"Reseting the groups cache"+reset);
 		db.groups.findAll({ 
 			attributes: ['name', 'members']
 		}).success(function(results) {
@@ -73,12 +74,26 @@ app.configure('development', function(){
 });
 
 passport.serializeUser(function(user, done) {
+	db.users.findAll({where: {"GoogleId": user._json.id}}).success(function(result) {
+		if (result.length == 0) {
+			db.users.create({GoogleId: user._json.id, name: user.displayName, email: user.emails[0].value}).success(function(result) {
+			  console.log(red + "User " + result.GoogleId+ " has been added to the database."+reset);
+			  setUserId(user,done);
+			});
+		} else {
+			console.log(red+"User " + user.displayName + " already exists."+reset);
+			setUserId(user,done);
+		}
+	});
+});
+
+function setUserId(user,done) {
 	db.users.find({where: {"GoogleId": user._json.id}}).success(function(result) {
 		user.id = result.id;
 		done(null, user);
 	});
- });
-
+}
+ 
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
@@ -126,18 +141,8 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-	db.users.findAll({where: ["GoogleId = ?", req.user._json.id]}).success(function(result) {
-		if (result.length == 0) {
-			db.users.create({GoogleId: req.user._json.id, name: req.user.displayName, email: req.user.emails[0].value}).success(function(result) {
-			  console.log(red + "User " + result.GoogleId+ " has been added to the database."+reset);
-			});
-		} else {
-			console.log(red+"User " + req.user.displayName + " already exists."+reset);
-		}
-	});
-    // Set message
-    req.session.message = "You have logged in as " + req.user.displayName;
-    res.redirect('back');
+		req.session.message = "You have logged in as " + req.user.displayName;
+		res.redirect('back');
   });
 
 app.get('/logout', function(req, res){
@@ -177,7 +182,7 @@ app.get('/removeGroupMember', ensureAuthenticated, function(req, res) {
 		var memberIndex = members.indexOf(req.user.id.toString());
 		if (memberIndex != -1) { //user is the group
 			members.splice(memberIndex,1);
-			console.log(red+"User " + req.user.id+" has been added to group " + req.query.group + "." + reset);
+			console.log(red+"User " + req.user.id+" has been removed from the " + req.query.group + " group." + reset);
 			group.members = members.join(','); //convert members to a string separated by commas
 			group.save();
 		}

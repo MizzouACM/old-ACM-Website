@@ -14,7 +14,7 @@ $(function() {
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Groups <b class="caret"></b></a>
 		<ul class="dropdown-menu">
 			<% groups.forEach(function(group) { %>
-				<li><a href="/groups/<%= group.name %>"><%= group.name %> (<% if (group.members) { %> <%=group.members.length %> member<% if (group.members.length > 1) { %>s<% } %><% } else %><%= "No Members" %>)</a></li>
+				<li><a href="/groups/<%= group.name %>"><%= group.name %> (<% if (group.members) { %> <%=group.members.length %> member<% if (group.members.length > 1) { %>s<% } %><% } else { %><%= "No Members" %><% } %> )</a></li>
 			<% }); %>
 			<li class="divider"></li>
 			<li><a href="/creategroup">Create a Group</a></li>
