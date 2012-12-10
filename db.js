@@ -27,4 +27,10 @@ db.groups = sequelize.define('groups', {
 	members: Sequelize.STRING
 })
 db.groups.sync()
+db.resources = sequelize.define('resources', {
+	name: Sequelize.STRING,
+	description: Sequelize.STRING,
+	link: Sequelize.STRING
+})
+db.resources.sync()
 module.exports = db;
