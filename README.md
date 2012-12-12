@@ -22,7 +22,7 @@ Contributing to the website
 7.  Stage the changed files in git
   ```git add .```
 8.  Commit the changed files with a message
-  ```git commit -m 'A short description of the changed files```
+  ```git commit -m 'A short description of the changed files'```
 9.  Push the changes to github
   ```git push origin master```
 
