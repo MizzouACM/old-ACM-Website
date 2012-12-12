@@ -17,7 +17,7 @@ Contributing to the website
 4.  Add the git repository as a git remote
   ```git remote add origin git@github.com:MizzouACM/ACM-Website.git```
 5.  Pull down the source code 
-  ```git pull```
+  ```git pull origin master```
 6.  Make your code changes
 7.  Stage the changed files in git
   ```git add .```
