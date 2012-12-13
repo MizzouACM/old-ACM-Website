@@ -23,7 +23,7 @@ exports.gallery = function(req, res) {
 };
 exports.galleryimage = function(req, res) {
 	db.users.findAll({attributes: ['id','name']}).success(function(users) {
-		db.comments.findAll({where: {page:req.params.img}}).success(function(comments) {
+		db.comments.findAll({where: {page:req.params.img}, order: 'createdAt'}).success(function(comments) {
 			comments = proccessComments(comments, users);
 			res.render('galleryimage', {img:req.params.img, title: '', comments: comments});
 		});
@@ -50,7 +50,7 @@ exports.createGroup = function(req, res) {
 exports.groups = function(req, res) {
 	db.users.findAll({attributes: ['id','name']}).success(function(users) {
 		db.groups.find({where: {name:req.params.name}}).success(function(result) {
-			db.comments.findAll({where: {type: 'group',page:req.params.name}}).success(function(comments) {
+			db.comments.findAll({where: {type: 'group',page:req.params.name}, order: 'createdAt'}).success(function(comments) {
 				comments = proccessComments(comments, users);
 				members = result.members || [];
 				if (members.length) {
