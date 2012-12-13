@@ -194,6 +194,7 @@ app.get('/removeGroupMember', ensureAuthenticated, function(req, res) {
 app.get('/groups/:name', routes.groups);
 
 app.get('/', routes.index);
+app.get('/user/:username', routes.user)
 app.get('/calendar', routes.calendar)
 app.get('/contact', routes.contact)
 app.get('/about', routes.about)
@@ -201,8 +202,6 @@ app.get('/resources', routes.resources);
 app.get('/gallery', routes.gallery);
 app.get('/gallery/:img', routes.galleryimage);
 app.get('/creategroup', routes.createGroup);
-app.get('/account', ensureAuthenticated, routes.account);
-
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }

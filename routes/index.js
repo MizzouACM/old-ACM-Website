@@ -6,8 +6,16 @@ exports.index = function(req, res) {
 exports.calendar = function(req, res) {
 	res.render('calendar', { title: 'Calendar'});
 };
-exports.account = function(req, res) {
-	res.render('account', { title: req.user.displayName});
+
+exports.user = function(req, res) {
+	db.users.find({where: {name:req.params.username}}).success(function(user) {
+		if (user) {
+			res.render('account', { title: user.name});
+		} else {
+			res.locals.message.push({message: "The user " + req.params.username + " does not exist", type: 'success'});
+			res.render('home', {title: 'Association for Computing Machinery'});
+		}
+	});
 };
 exports.contact = function(req, res) {
 	res.render('contact', { title: 'Contact'});
