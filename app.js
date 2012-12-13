@@ -12,7 +12,6 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , config = require('./config')
   , db = require('./db')
   , passport = require('passport')
   , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -21,7 +20,7 @@ var app = express();
 
 // configure Express
 app.configure(function() {
-  app.set('port', config.port);
+  app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   //app.use(express.logger());
@@ -100,15 +99,19 @@ passport.deserializeUser(function(obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Google
 //   profile), and invoke a callback with a user object.
-if (config.env == 'development') {
-	var callbackURL = "http://localhost:3000/auth/google/callback"; //locally
+var config;
+if (!process.env.database) {
+	config = require('./config');
+}
+/**if (config.env == 'development') {
 } else {
 	var callbackURL = ""; //on Heroku
-}
+}**/
+var callbackURL = "http://localhost:3000/auth/google/callback"; //locally
 passport.use(new GoogleStrategy({
-    clientID: config.GoogleClientID,
-    clientSecret: config.GoogleClientSecret,
-    callbackURL: callbackURL
+    clientID: process.env.GoogleClientID || config.GoogleClientID,
+    clientSecret: process.env.GoogleClientSecret || config.GoogleClientSecret,
+    callbackURL: process.env.callbackURL || callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...

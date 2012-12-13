@@ -1,14 +1,21 @@
 var mysql = require('mysql');
 var Sequelize = require("sequelize")
+var sequelize;
 if (!process.env.database) {
 	var config = require('./config');
+	sequelize = new Sequelize(process.env.database || config.database, process.env.user || config.user,  process.env.password || config.password, {
+		host: process.env.host || config.host,
+		port: process.env.dbPort || config.dbPort
+	})
+} else {
+	sequelize = new Sequelize(process.env.database, process.env.user,  process.env.password, {
+		host: process.env.host,
+		port: process.env.dbPort
+	})
 }
+
+
 var db = {};
-var sequelize = new Sequelize(process.env.database || config.database, process.env.user || config.user,  process.env.password || config.password, {
-	host: process.env.host || config.host,
-	port: process.env.dbPort || config.dbPort
-//	logging: false //comment out this line to show all db queries in console
-})
 db.users = sequelize.define('users', {
 	GoogleId: Sequelize.STRING,
 	name: Sequelize.STRING,
