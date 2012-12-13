@@ -194,7 +194,7 @@ app.get('/removeGroupMember', ensureAuthenticated, function(req, res) {
 app.get('/groups/:name', routes.groups);
 
 app.get('/', routes.index);
-app.get('/user/:username', routes.user)
+app.get('/user/:userid', routes.user)
 app.get('/calendar', routes.calendar)
 app.get('/contact', routes.contact)
 app.get('/about', routes.about)

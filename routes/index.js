@@ -8,11 +8,11 @@ exports.calendar = function(req, res) {
 };
 
 exports.user = function(req, res) {
-	db.users.find({where: {name:req.params.username}}).success(function(user) {
+	db.users.find({where: {id:req.params.userid}}).success(function(user) {
 		if (user) {
 			res.render('account', { title: user.name});
 		} else {
-			res.locals.message.push({message: "The user " + req.params.username + " does not exist", type: 'success'});
+			res.locals.message.push({message: "This user does not exist.", type: 'success'});
 			res.render('home', {title: 'Association for Computing Machinery'});
 		}
 	});
@@ -80,7 +80,7 @@ function uidToNames(ids, users) { //convert user id's to user names
 	ids.forEach(function(id) {
 		users.some(function(user) {
 			if (id == user.id) {
-				userNames.push(user.name);
+				userNames.push({name: user.name, id: id});
 				return;
 			}
 		});

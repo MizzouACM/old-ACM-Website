@@ -1,7 +1,7 @@
 <div id="picture-comments-holder">
 	<h4>Comments (<%= comments.length %>)</h4>
 	<% comments.reverse().forEach( function(comment) { %>
-		<hr><p><a href="/user/<%= comment.name%>"><strong><%= comment.name %></strong></a><span style="float:right;"><%= comment.date %></span><br><%= comment.comment %></p>
+		<hr><p><a href="/user/<%= comment.userId%>"><strong><%= comment.name %></strong></a><span style="float:right;"><%= comment.date %></span><br><%= comment.comment %></p>
 	<% }); %>
 	<% if (user) { %>
 	<form class="well"method="get" action="/postComment">

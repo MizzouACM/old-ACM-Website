@@ -19,7 +19,7 @@
 <b>Members</b>:
 <ul>
 	<% members.forEach(function(member) { %>
-		<li><a href="/user/<%= member %>"><%= member %></a></li>
+		<li><a href="/user/<%= member.id %>"><%= member.name %></a></li>
 	<% }) %>
 	<% if (!members.length) {%>
 		There are no members in this group.
