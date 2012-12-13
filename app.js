@@ -108,7 +108,7 @@ if (!process.env.database) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GoogleClientID || config.GoogleClientID,
     clientSecret: process.env.GoogleClientSecret || config.GoogleClientSecret,
-    callbackURL: process.env.callbackURL || callbackURL
+    callbackURL: callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
