@@ -1,6 +1,8 @@
 var mysql = require('mysql');
-var config = require('./config');
 var Sequelize = require("sequelize")
+if (!process.env.database) {
+	var config = require('./config');
+}
 var db = {};
 var sequelize = new Sequelize(process.env.database || config.database, process.env.user || config.user,  process.env.password || config.password, {
 	host: process.env.host || config.host,
