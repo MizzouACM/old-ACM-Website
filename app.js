@@ -103,7 +103,7 @@ if (!process.env.database) {
 	config = require('./config');
 	var callbackURL = "http://localhost:3000/auth/google/callback"; //locally
 } else {
-	var callbackURL = 'http://floating-caverns-9042.herokuapp.com'
+	var callbackURL = 'http://floating-caverns-9042.herokuapp.com/auth/google/callback';
 }
 passport.use(new GoogleStrategy({
     clientID: process.env.GoogleClientID || config.GoogleClientID,
