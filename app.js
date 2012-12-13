@@ -26,7 +26,6 @@ app.configure(function() {
   //app.use(express.logger());
   app.use(express.cookieParser());
   app.use(express.bodyParser());
-  app.use(express.methodOverride());
   app.use(express.session({ secret: 'giftcards' }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
