@@ -101,12 +101,10 @@ passport.deserializeUser(function(obj, done) {
 var config = {};
 if (!process.env.database) {
 	config = require('./config');
-}
-/**if (config.env == 'development') {
+	var callbackURL = "http://localhost:3000/auth/google/callback"; //locally
 } else {
-	var callbackURL = ""; //on Heroku
-}**/
-var callbackURL = "http://localhost:3000/auth/google/callback"; //locally
+	var callbackURL = 'http://floating-caverns-9042.herokuapp.com'
+}
 passport.use(new GoogleStrategy({
     clientID: process.env.GoogleClientID || config.GoogleClientID,
     clientSecret: process.env.GoogleClientSecret || config.GoogleClientSecret,
