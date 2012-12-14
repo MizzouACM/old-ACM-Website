@@ -53,11 +53,8 @@ app.configure(function() {
 	}, 60000);
 	// Message support
 	app.use(function (req, res, next) {
-		if (!req.session.message) {
-			req.session.message = [];
-		}
-		res.locals.message = req.session.message;
-		req.session.message = [];
+		res.locals.message = messages;
+		messages = [];
 		next();
 	});
   app.use(app.router);
@@ -139,7 +136,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-		req.session.message.push({message: 'You are now logged in as ' + req.user.displayName + '.', type: 'success'});
+		statusMessage('You are now logged in as ' + req.user.displayName + '.');
 		res.redirect('back');
   });
 
@@ -151,7 +148,7 @@ app.get('/logout', function(req, res){
 
 app.get('/createGroupCallback', function(req, res) {
 	db.groups.create({name: req.query['name'], description: req.query['description'], meetingInformation: req.query['meetingInformation']}).success(function(result) {
-		req.session.message.push({message: "You have created the " + req.query['name'] + " group.", type: 'success'});
+		statusMessage("You have created the " + req.query['name'] + " group.");
 		res.redirect('back');
 	});
 });
@@ -168,7 +165,7 @@ app.get('/addGroupMember', ensureAuthenticated, function(req, res) {
 		if (members.indexOf(req.user.id.toString()) == -1) { //user is not already in the group
 			members.push(req.user.id);
 			console.log(green+"User " + req.user.id+" has been added to group " + req.query.group + "." + reset);
-			req.session.message.push({message: "You have joined the " + req.query.group + " group.", type: 'success'});
+			statusMessage("You have joined the " + req.query.group + " group.");
 			group.members = members.join(','); //convert members to a string separated by commas
 			group.save();
 		}
@@ -182,7 +179,7 @@ app.get('/removeGroupMember', ensureAuthenticated, function(req, res) {
 		if (memberIndex != -1) { //user is the group
 			members.splice(memberIndex,1);
 			console.log(red+"User " + req.user.id+" has been removed from the " + req.query.group + " group." + reset);
-			req.session.message.push({message: "You have left the " + req.query.group + " group.", type: 'danger'});
+			statusMessage("You have left the " + req.query.group + " group.", 'danger');
 			group.members = members.join(','); //convert members to a string separated by commas
 			group.save();
 		}
@@ -211,3 +208,8 @@ function ensureAuthenticated(req, res, next) {
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+var messages = [];
+function statusMessage(message, type) {
+	messages.push({message: message, type: type || 'success'});
+}
