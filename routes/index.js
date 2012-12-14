@@ -8,11 +8,23 @@ exports.calendar = function(req, res) {
 };
 
 exports.user = function(req, res) {
-	db.users.find({where: {id:req.params.userid}}).success(function(user) {
-		if (user) {
-			res.render('account', { title: user.name});
+	db.users.find({where: {id:req.params.userid}}).success(function(profile) {
+		if (profile) {
+			var groupMemberships = [];
+			db.groups.findAll().success(function(groups) {
+				groups.forEach(function(group) {
+					if (group.members.length) {
+						console.log('checking group ' + group.name);
+						members = group.members.split(',');
+						if (members.indexOf(req.params.userid.toString()) != -1) { //user is in this group
+							groupMemberships.push(group.name);
+						}
+					}
+				});
+				res.render('account', { title: profile.name, groupMemberships: groupMemberships});
+			});
 		} else {
-			res.locals.message.push({message: "This user does not exist.", type: 'success'});
+			res.locals.message.push({message: "This profile does not exist.", type: 'success'});
 			res.render('home', {title: 'Association for Computing Machinery'});
 		}
 	});

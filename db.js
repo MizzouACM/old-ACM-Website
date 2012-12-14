@@ -19,7 +19,10 @@ var db = {};
 db.users = sequelize.define('users', {
 	GoogleId: Sequelize.STRING,
 	name: Sequelize.STRING,
-	email: Sequelize.STRING
+	email: Sequelize.STRING,
+	gitHub: Sequelize.STRING,
+	linkedIn: Sequelize.STRING,
+	website: Sequelize.STRING
 })
 db.comments = sequelize.define('comments', {
 	type: Sequelize.STRING,

@@ -1,4 +1,12 @@
 <% include precontent %>
-the account content here...	
-
+<h4>Groups</h4>
+<% if (groupMemberships.length) { %>
+	<ul>
+	<% groupMemberships.forEach(function(group) { %>
+		<li><a href="/groups/<%= group %>"><%= group %></a></li>
+	<% }); %>
+	</ul>
+<% } else { %>
+	This user hasn't joined any groups yet.
+<% } %>
 <% include postcontent %>
