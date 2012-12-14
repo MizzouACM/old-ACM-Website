@@ -182,7 +182,7 @@ app.get('/removeGroupMember', ensureAuthenticated, function(req, res) {
 		if (memberIndex != -1) { //user is the group
 			members.splice(memberIndex,1);
 			console.log(red+"User " + req.user.id+" has been removed from the " + req.query.group + " group." + reset);
-			req.session.message.push({message: "You have left the " + req.query.group + " group.", type: 'danger'});
+			req.session.message.push({message: "You have left the " + req.query.group + " group.", type: 'success'});
 			group.members = members.join(','); //convert members to a string separated by commas
 			group.save();
 		}
